@@ -1,23 +1,51 @@
 function Frame() {
   this.rolls = [];
-  this.frameTotal = 0;
-  this.bonusTotal = undefined;
-  this.cumulativeTotal = undefined;
   this.strike = undefined;
   this.spare = undefined;
-
+  this.next = undefined;
 };
 
+Frame.prototype.addScoreLatestFrame = function(score) {
+  var frame = this;
+  var current = frame;
+  while (frame.next !== undefined ) {
+    current = frame;
+    frame = frame.nextFrame();
+  }
+  current.addScore(score);
+};
+
+Frame.prototype.addScoreNewFrame = function(score) {
+  var frame = this;
+  var current = frame;
+  while (frame.next !== undefined ) {
+    current = frame;
+    frame = frame.nextFrame();
+  }
+  current.next = new Frame();
+  current.next.addScore(score);
+};
+
+Frame.prototype.nextFrame = function() {
+  return this.next;
+};
 
 Frame.prototype.addScore = function(score) {
   this.rolls.push(score);
-  this._setFrameTotal();
   this._setStrikeIndicator();
   this._setSpareIndicator();
 };
 
-Frame.prototype._setFrameTotal = function() {
-  this.frameTotal += this.rolls[this.rolls.length-1];
+Frame.prototype.score = function() {
+  var frameScore = 0;
+  for (var i = 0; i < this.rolls.length; i++) {
+    frameScore += this.rolls[i];
+  }
+  if (this.spare === true && this.next !== undefined) {
+    console.log(this.next);
+    frameScore += this.next.rolls[0];
+  }
+  return frameScore;
 };
 
 
@@ -31,7 +59,7 @@ Frame.prototype._setStrikeIndicator = function() {
 
 Frame.prototype._setSpareIndicator = function() {
   if (this.spare === undefined && (this.rolls.length > 1 || this.strike === true)) {
-    this.frameTotal === 10 && this.strike === false
+    (this.rolls[0] + this.rolls[1]) === 10 && this.strike === false
     ? this.spare = true
     : this.spare = false;
   }

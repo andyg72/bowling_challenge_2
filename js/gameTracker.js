@@ -1,7 +1,6 @@
-function GameTracker(initialValues) {
-  this.maxScoreInFrame = initialValues.maxScoreInFrame;
-  this.maxRollsInFrame = initialValues.maxRollsInFrame;
-  this.firstRollInFrame = initialValues.firstFrameInRoll;
+function GameTracker(initValues) {
+  this.maxScoreInFrame = initValues.maxScoreInFrame;
+  this.maxRollsInFrame = initValues.maxRollsInFrame;
 };
 
 

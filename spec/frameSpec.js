@@ -19,15 +19,15 @@ describe('frame', function() {
     expect(frame.rolls).toEqual([5,3]);
   });
 
-  it('should add a frame total - one ball', function() {
+  it('should calculate a frame score - one ball', function() {
     frame.addScore(5);
-    expect(frame.frameTotal).toEqual(5);
+    expect(frame.score()).toEqual(5);
   });
 
   it('should add a frame total - two balls', function() {
     frame.addScore(5);
     frame.addScore(3);
-    expect(frame.frameTotal).toEqual(8);
+    expect(frame.score()).toEqual(8);
   });
 
   it('should add a strike indicator to the frame - true', function() {
