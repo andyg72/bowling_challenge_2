@@ -14,14 +14,17 @@ var Game = function() {
                                       maxRollsInFrame: this.maxRollsInFrame});
 };
 
+
 Game.prototype.addScore = function(score) {
-  if (this.rollNumber === 1) {
-    if (this.firstFrame === undefined) {
-      this.firstFrame = new Frame();
-    }
+  if (this.firstFrame === undefined) {
+    this.firstFrame = new Frame();
+  }
+  if (this.rollNumber === 1 && this.frameNumber !== 1) {
     this.firstFrame.addScoreNewFrame(score);
   }
+  else {
   this.firstFrame.addScoreLatestFrame(score);
+  }
   this.rollScore = score;
   this.rollTrackerUpdate();
 };
