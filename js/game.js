@@ -10,6 +10,8 @@ var Game = function() {
   this.maxRollScore = 10;
   this.rollScore = undefined;
   this.gameScore = 0;
+  this.gameTracker = new GameTracker({maxScoreInFrame: this.maxScoreInFrame,
+                                      maxRollsInFrame: this.maxRollsInFrame});
 };
 
 Game.prototype.addScore = function(score) {
@@ -20,6 +22,8 @@ Game.prototype.addScore = function(score) {
     this.firstFrame.addScoreNewFrame(score);
   }
   this.firstFrame.addScoreLatestFrame(score);
+  this.rollScore = score;
+  this.rollTrackerUpdate();
 };
 
 Game.prototype.totalScore = function() {
@@ -32,7 +36,18 @@ Game.prototype.totalScore = function() {
     frame = frame.nextFrame();
   }
   return this.gameScore;
-}
+};
+
+Game.prototype.rollTrackerUpdate = function() {
+  var rollValues = {};
+  rollValues.frame = this.frameNumber;
+  rollValues.roll = this.rollNumber;
+  rollValues.score = this.rollScore;
+  var nextRollValues = this.gameTracker.nextRollValues(rollValues);
+  this.frameNumber = nextRollValues.frame;
+  this.rollNumber = nextRollValues.roll;
+  this.maxRollScore = nextRollValues.maxRollScore;
+};
 
 
 module.exports = Game

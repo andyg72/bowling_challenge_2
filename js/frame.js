@@ -42,8 +42,10 @@ Frame.prototype.score = function() {
     frameScore += this.rolls[i];
   }
   if (this.spare === true && this.next !== undefined) {
-    console.log(this.next);
     frameScore += this.next.rolls[0];
+  }
+  if (this.strike === true && this.next !== undefined) {
+    frameScore += this.next.rolls[0] + this.next.rolls[1];
   }
   return frameScore;
 };

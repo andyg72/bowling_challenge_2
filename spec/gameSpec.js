@@ -27,6 +27,7 @@ describe('game', function() {
     game.addScore(5);
     game.addScore(4);
     game.addScore(7);
+    console.log(game);
     expect(game.totalScore()).toEqual(16);
   });
 
@@ -35,6 +36,13 @@ describe('game', function() {
     game.addScore(6);
     game.addScore(7);
     expect(game.totalScore()).toEqual(24);
+  });
+
+  it('should be able to correctly score a strike', function() {
+    game.addScore(10);
+    game.addScore(6);
+    game.addScore(3);
+    expect(game.totalScore()).toEqual(28);
   });
 
 

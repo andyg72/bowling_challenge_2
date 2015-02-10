@@ -26,7 +26,7 @@ GameTracker.prototype._nextRollFrame = function(rollInput) {
 GameTracker.prototype._nextRollMaxScore = function(rollInput) {
   return (rollInput.roll === this.maxRollsInFrame || rollInput.score === this.maxScoreInFrame)
     ? this.maxScoreInFrame
-    : this.maxScoreInFrame -= rollInput.score;
+    : this.maxScoreInFrame - rollInput.score;
 };
 
 module.exports = GameTracker;
