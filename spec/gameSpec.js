@@ -17,27 +17,27 @@ describe('game', function() {
     expect(game.totalScore()).toEqual(5);
   });
 
-  xit('should be able to add a second roll score to the first frame', function() {
+  it('should be able to add a second roll score to the first frame', function() {
     game.addScore(5);
     game.addScore(4);
     expect(game.totalScore()).toEqual(9);
   });
 
-  xit('should be able to add a first roll score to the second frame', function() {
+  it('should be able to add a first roll score to the second frame', function() {
     game.addScore(5);
     game.addScore(4);
     game.addScore(7);
     expect(game.totalScore()).toEqual(16);
   });
 
-  xit('should be able to correctly score a spare', function() {
+  it('should be able to correctly score a spare', function() {
     game.addScore(4);
     game.addScore(6);
     game.addScore(7);
     expect(game.totalScore()).toEqual(24);
   });
 
-  xit('should be able to correctly score a strike', function() {
+  it('should be able to correctly score a strike', function() {
     game.addScore(10);
     game.addScore(6);
     game.addScore(3);

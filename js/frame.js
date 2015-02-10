@@ -6,16 +6,13 @@ function Frame() {
 };
 
 Frame.prototype.addScoreLatestFrame = function(score) {
-  console.log('Am using Latest Frame');
   var frame = this;
   var current = frame;
   while (frame.next !== undefined ) {
     current = frame;
     frame = frame.nextFrame();
   }
-  console.log(current);
-  current.addScore(score);
-  console.log(current);
+  frame.addScore(score);
 };
 
 Frame.prototype.addScoreNewFrame = function(score) {

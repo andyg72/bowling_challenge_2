@@ -34,9 +34,10 @@ Game.prototype.totalScore = function() {
     this.gameScore = 0;
   }
   var frame = this.firstFrame;
+  this.gameScore += frame.score();
   while (frame.next !== undefined) {
-    this.gameScore += frame.score();
     frame = frame.nextFrame();
+    this.gameScore += frame.score();
   }
   return this.gameScore;
 };
