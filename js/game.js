@@ -53,5 +53,15 @@ Game.prototype.rollTrackerUpdate = function() {
   this.maxRollScore = nextRollValues.maxRollScore;
 };
 
+Game.prototype.lastFrameScore = function() {
+  var frame = this.firstFrame;
+  var current = frame;
+  while (frame.next !== undefined) {
+    frame = frame.nextFrame();
+    current = frame
+  }
+  return current.score();
+};
+
 
 module.exports = Game

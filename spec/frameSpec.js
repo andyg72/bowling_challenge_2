@@ -1,6 +1,6 @@
 var Frame = require('../js/frame');
 
-xdescribe('frame', function() {
+describe('frame', function() {
 
   var frame;
 

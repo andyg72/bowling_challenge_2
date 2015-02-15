@@ -24,7 +24,8 @@ GameTracker.prototype._nextRollFrame = function(rollInput) {
 };
 
 GameTracker.prototype._nextRollMaxScore = function(rollInput) {
-  return (rollInput.roll === this.maxRollsInFrame || rollInput.score === this.maxScoreInFrame)
+  return (rollInput.roll === this.maxRollsInFrame ||
+          rollInput.score === this.maxScoreInFrame)
     ? this.maxScoreInFrame
     : this.maxScoreInFrame - rollInput.score;
 };

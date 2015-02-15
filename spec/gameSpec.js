@@ -48,7 +48,6 @@ describe('game', function() {
     game.addScore(10);
     game.addScore(10);
     game.addScore(5);
-
     expect(game.totalScore()).toEqual(45);
   });
 
@@ -56,8 +55,14 @@ describe('game', function() {
     game.addScore(10);
     game.addScore(10);
     game.addScore(10);
-
     expect(game.totalScore()).toEqual(60);
+  });
+
+  it('should know the frame score of the last frame', function() {
+    game.addScore(10);
+    game.addScore(10);
+    game.addScore(5);
+    expect(game.lastFrameScore()).toEqual(5);
   });
 
 
