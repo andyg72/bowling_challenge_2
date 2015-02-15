@@ -1,6 +1,6 @@
 var GameTracker = require('../js/gameTracker.js');
 
-describe('advancing rolls', function() {
+xdescribe('advancing rolls', function() {
 
   var gameTracker;
 

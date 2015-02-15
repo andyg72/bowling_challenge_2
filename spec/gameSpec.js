@@ -44,18 +44,22 @@ describe('game', function() {
     expect(game.totalScore()).toEqual(28);
   });
 
-  it('should be able to correctly score a strike followed ', function() {
+  it('should be able to correctly score 2 strikes and a 5', function() {
     game.addScore(10);
-    console.log('1 ' + game.firstFrame);
     game.addScore(10);
-    console.log('2.1 ' + game.firstFrame);
-    console.log('2.2 ' + game.firstFrame.next);
     game.addScore(5);
-    console.log('3.1 ' + game.firstFrame);
-    console.log('3.2 ' + game.firstFrame.next);
-    console.log('3.3 ' + game.firstFrame.next.next);
-    expect(game.totalScore()).toEqual(50);
+
+    expect(game.totalScore()).toEqual(45);
   });
+
+  it('should be able to correctly score 3 strikes', function() {
+    game.addScore(10);
+    game.addScore(10);
+    game.addScore(10);
+
+    expect(game.totalScore()).toEqual(60);
+  });
+
 
 
 });
