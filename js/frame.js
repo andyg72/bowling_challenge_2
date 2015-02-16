@@ -58,17 +58,17 @@ Frame.prototype.score = function() {
 
 Frame.prototype._setStrikeIndicator = function() {
   if (this.strike === undefined) {
-    this.rolls[0] === 10
-    ? this.strike = true
-    : this.strike = false;
+    this.strike = (this.rolls[0] === 10)
+    ? true
+    : false;
   }
 };
 
 Frame.prototype._setSpareIndicator = function() {
   if (this.spare === undefined && (this.rolls.length > 1 || this.strike === true)) {
-    (this.rolls[0] + this.rolls[1]) === 10 && this.strike === false
-    ? this.spare = true
-    : this.spare = false;
+    this.spare = ((this.rolls[0] + this.rolls[1]) === 10 && this.strike === false)
+    ? true
+    : false;
   }
 };
 

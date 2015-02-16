@@ -1,17 +1,20 @@
 var GameTracker = require('./gameTracker');
+var GameTrackerFinalFrame = require('./gameTrackerFinalFrame');
 var Frame = require('./frame')
 
 var Game = function() {
   this.maxScoreInFrame = 10;
   this.maxRollsInFrame = 2;
+  this.gameTrackerInitValues = {maxScoreInFrame: this.maxScoreInFrame,
+                                maxRollsInFrame: this.maxRollsInFrame}
+  this.gameTracker = new GameTracker(this.gameTrackerInitValues);
+  this.gameTrackerFinalFrame = undefined;
   this.firstFrame = undefined;
   this.frameNumber = 1;
   this.rollNumber = 1;
   this.maxRollScore = 10;
   this.rollScore = undefined;
   this.gameScore = 0;
-  this.gameTracker = new GameTracker({maxScoreInFrame: this.maxScoreInFrame,
-                                      maxRollsInFrame: this.maxRollsInFrame});
 };
 
 
@@ -47,13 +50,18 @@ Game.prototype.rollTrackerUpdate = function() {
   rollValues.frame = this.frameNumber;
   rollValues.roll = this.rollNumber;
   rollValues.score = this.rollScore;
-  var nextRollValues = this.gameTracker.nextRollValues(rollValues);
+  if (this.frameNumber === 10 && this.rollNumber === 1) {
+    this.gameTrackerFinalFrame = new GameTrackerFinalFrame(this.gameTrackerInitValues);
+  }
+  var nextRollValues = (this.frameNumber === 10)
+    ? this.gameTrackerFinalFrame.nextRollValues(rollValues)
+    : this.gameTracker.nextRollValues(rollValues);
   this.frameNumber = nextRollValues.frame;
   this.rollNumber = nextRollValues.roll;
   this.maxRollScore = nextRollValues.maxRollScore;
 };
 
-Game.prototype.lastFrameScore = function() {
+Game.prototype.latestFrameScore = function() {
   var frame = this.firstFrame;
   var current = frame;
   while (frame.next !== undefined) {
@@ -62,6 +70,5 @@ Game.prototype.lastFrameScore = function() {
   }
   return current.score();
 };
-
 
 module.exports = Game

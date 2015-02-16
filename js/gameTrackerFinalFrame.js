@@ -1,14 +1,14 @@
 var GameTracker = require('./gameTracker');
 
-function GameTrackerTenthFrame(initValues) {
+function GameTrackerFinalFrame(initValues) {
   GameTracker.call(this, initValues);
 };
 
-GameTrackerTenthFrame.prototype = Object.create(GameTracker.prototype);
+GameTrackerFinalFrame.prototype = Object.create(GameTracker.prototype);
 
-GameTrackerTenthFrame.prototype.constructor = GameTrackerTenthFrame;
+GameTrackerFinalFrame.prototype.constructor = GameTrackerFinalFrame;
 
-GameTrackerTenthFrame.prototype.nextRollValues = function(rollInput) {
+GameTrackerFinalFrame.prototype.nextRollValues = function(rollInput) {
   if ((rollInput.roll === this.maxRollsInFrame &&
       (rollInput.score + rollInput.frameScore) < this.maxScoreInFrame) ||
       rollInput.roll === this.maxRollsInFrame + 1) {
@@ -22,7 +22,7 @@ GameTrackerTenthFrame.prototype.nextRollValues = function(rollInput) {
   }
 }
 
-GameTrackerTenthFrame.prototype.nextRollNumber = function(rollInput) {
+GameTrackerFinalFrame.prototype.nextRollNumber = function(rollInput) {
   return (rollInput.roll < this.maxRollsInFrame ||
           rollInput.score === this.maxScoreInFrame ||
           rollInput.frameScore + rollInput.score === this.maxScoreInFrame)
@@ -30,8 +30,8 @@ GameTrackerTenthFrame.prototype.nextRollNumber = function(rollInput) {
     : 1;
 };
 
-GameTrackerTenthFrame.prototype.nextRollFrame = function(rollInput) {
+GameTrackerFinalFrame.prototype.nextRollFrame = function(rollInput) {
   return rollInput.frame;
 };
 
-module.exports = GameTrackerTenthFrame;
+module.exports = GameTrackerFinalFrame;

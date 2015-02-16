@@ -64,11 +64,29 @@ describe('game', function() {
       game.addScore(10);
       game.addScore(10);
       game.addScore(5);
-      expect(game.lastFrameScore()).toEqual(5);
+      expect(game.latestFrameScore()).toEqual(5);
     });
 
   });
 
+  describe('final frame', function() {
 
+    xit('should set up a final frame tracker from the first ball of the final frame', function() {
+      game.frameNumber = 10;
+      game.rollNumber = 1;
+      game.rollScore = 4;
+      game.rollTrackerUpdate;
+      // expect(game.GameTrackerFinalFrame).shouldReceive(new);
+    });
+
+    it('should know when the game is over', function() {
+      game.frameNumber = 10;
+      game.rollNumber = 1;
+      game.addScore(4);
+      console.log(game.frameNumber, game.rollNumber, game.maxRollScore);
+      expect(game.rollTrackerUpdate()).toEqual({gameOver: true});
+    });
+
+  });
 
 });
