@@ -48,10 +48,7 @@ Game.prototype.totalScore = function() {
 };
 
 Game.prototype.rollTrackerUpdate = function() {
-  var rollValues = {};
-  rollValues.frame = this.frameNumber;
-  rollValues.roll = this.rollNumber;
-  rollValues.score = this.rollScore;
+  var rollValues = this._setRollValues();
   if (this.frameNumber === this.framesInGame && this.rollNumber === 1) {
     this.gameTrackerFinalFrame = new GameTrackerFinalFrame(this.gameTrackerInitValues);
   }
@@ -68,6 +65,15 @@ Game.prototype._setNextRollValues = function(nextRollValues) {
   this.rollNumber = nextRollValues.roll;
   this.maxRollScore = nextRollValues.maxRollScore;
 };
+
+Game.prototype._setRollValues = function() {
+  var rollValues = {};
+  rollValues.frame = this.frameNumber;
+  rollValues.roll = this.rollNumber;
+  rollValues.score = this.rollScore;
+  return rollValues;
+};
+
 
 Game.prototype.latestFrameScore = function() {
   var frame = this.firstFrame;
