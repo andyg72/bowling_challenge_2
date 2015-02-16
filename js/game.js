@@ -10,11 +10,13 @@ var Game = function() {
   this.gameTracker = new GameTracker(this.gameTrackerInitValues);
   this.gameTrackerFinalFrame = undefined;
   this.firstFrame = undefined;
+  this.framesInGame = 10;
   this.frameNumber = 1;
   this.rollNumber = 1;
   this.maxRollScore = 10;
   this.rollScore = undefined;
   this.gameScore = 0;
+  this.gameOver = undefined;
 };
 
 
@@ -50,12 +52,18 @@ Game.prototype.rollTrackerUpdate = function() {
   rollValues.frame = this.frameNumber;
   rollValues.roll = this.rollNumber;
   rollValues.score = this.rollScore;
-  if (this.frameNumber === 10 && this.rollNumber === 1) {
+  if (this.frameNumber === this.framesInGame && this.rollNumber === 1) {
     this.gameTrackerFinalFrame = new GameTrackerFinalFrame(this.gameTrackerInitValues);
   }
-  var nextRollValues = (this.frameNumber === 10)
+  var nextRollValues = (this.frameNumber === this.framesInGame)
     ? this.gameTrackerFinalFrame.nextRollValues(rollValues)
     : this.gameTracker.nextRollValues(rollValues);
+  (nextRollValues.gameOver !== undefined)
+    ? this.gameOver = true
+    : this._setNextRollValues(nextRollValues);
+};
+
+Game.prototype._setNextRollValues = function(nextRollValues) {
   this.frameNumber = nextRollValues.frame;
   this.rollNumber = nextRollValues.roll;
   this.maxRollScore = nextRollValues.maxRollScore;
