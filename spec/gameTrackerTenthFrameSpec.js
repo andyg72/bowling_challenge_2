@@ -38,7 +38,7 @@ var GameTrackerTenthFrame = require ('../js/gameTrackerTenthFrame.js')
       });
 
       it('should declare game over if once the 3rd ball has been played', function() {
-        expect(gameTrackerTenthFrame.nextRollValues({frame: 10, roll:3, score:3})).toEqual({gameOver: true})        
+        expect(gameTrackerTenthFrame.nextRollValues({frame: 10, roll:3, score:3})).toEqual({gameOver: true})
       });
 
     });
