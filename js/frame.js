@@ -5,35 +5,40 @@ function Frame() {
   this.next = undefined;
 };
 
-Frame.prototype.addScoreLatestFrame = function(score) {
-  var frame = this;
-  var current = frame;
-  while (frame.next !== undefined ) {
-    current = frame;
-    frame = frame.nextFrame();
-  }
-  frame.addScore(score);
+Frame.prototype.addScoreFirstBall = function(score) {
+  this._addScoreCurrentFrame(score)
 };
 
-Frame.prototype.addScoreNewFrame = function(score) {
+Frame.prototype.addScore = function(score) {
+  var latestFrame = this._latestFrame();
+  (latestFrame.spare === undefined)
+    ? latestFrame._addScoreCurrentFrame(score)
+    : latestFrame._addScoreNewFrame(score);
+};
+
+Frame.prototype._latestFrame = function() {
   var frame = this;
   var current = frame;
-  while (frame.next !== undefined ) {
+  while (frame.next !== undefined) {
     frame = frame.nextFrame();
     current = frame;
   }
-  current.next = new Frame();
-  current.next.addScore(score);
+  return current;
+};
+
+Frame.prototype._addScoreCurrentFrame = function(score) {
+  this.rolls.push(score);
+  this._setStrikeIndicator();
+  this._setSpareIndicator();
+};
+
+Frame.prototype._addScoreNewFrame = function(score) {
+  this.next = new Frame();
+  this.next._addScoreCurrentFrame(score);
 };
 
 Frame.prototype.nextFrame = function() {
   return this.next;
-};
-
-Frame.prototype.addScore = function(score) {
-  this.rolls.push(score);
-  this._setStrikeIndicator();
-  this._setSpareIndicator();
 };
 
 Frame.prototype.score = function() {
@@ -70,10 +75,6 @@ Frame.prototype._setSpareIndicator = function() {
     ? true
     : false;
   }
-};
-
-Frame.prototype.nextFrame = function () {
-  return this.next
 };
 
 module.exports = Frame

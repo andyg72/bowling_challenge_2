@@ -9,7 +9,7 @@ var Game = function() {
                                 maxRollsInFrame: this.maxRollsInFrame}
   this.gameTracker = new GameTracker(this.gameTrackerInitValues);
   this.gameTrackerFinalFrame = undefined;
-  this.firstFrame = undefined;
+  this.firstFrame = new Frame();
   this.framesInGame = 10;
   this.frameNumber = 1;
   this.rollNumber = 1;
@@ -21,15 +21,9 @@ var Game = function() {
 
 
 Game.prototype.addScore = function(score) {
-  if (this.firstFrame === undefined) {
-    this.firstFrame = new Frame();
-  }
-  if (this.rollNumber === 1 && this.frameNumber !== 1) {
-    this.firstFrame.addScoreNewFrame(score);
-  }
-  else {
-  this.firstFrame.addScoreLatestFrame(score);
-  }
+  (this.rollNumber === 1 && this.frameNumber === 1)
+    ? this.firstFrame.addScoreFirstBall(score)
+    : this.firstFrame.addScore(score);
   this.rollScore = score;
   this.rollTrackerUpdate();
 };
